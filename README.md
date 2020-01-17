@@ -1,1 +1,1 @@
-# spring-cloud-common-mysql
+# spring-cloud-common-mybatis
