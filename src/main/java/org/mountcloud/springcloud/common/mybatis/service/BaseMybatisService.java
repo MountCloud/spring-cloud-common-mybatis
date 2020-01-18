@@ -6,6 +6,7 @@ import org.mountcloud.springcloud.mvc.common.service.BaseService;
 import org.mountcloud.springproject.common.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -91,7 +92,15 @@ public abstract class BaseMybatisService<T extends BaseEntity, D extends BaseDao
 	 */
 	@Override
 	public T save(T bean) {
-		generalDao.save(bean);
+		Date now = new Date();
+		if(bean.getCreateTime()==null){
+			bean.setCreateTime(now);
+		}
+		bean.setUpdateTime(now);
+		int i=generalDao.save(bean);
+		if(i<1){
+			return null;
+		}
 		return bean;
 	}
 
@@ -101,8 +110,16 @@ public abstract class BaseMybatisService<T extends BaseEntity, D extends BaseDao
 	 * @param bean 实体bean
 	 * @return 保存结果
 	 */
-	public boolean saveSelective(BaseEntity bean) {
-		return generalDao.saveSelective(bean);
+	public T saveSelective(T bean) {
+		Date now = new Date();
+		if(bean.getCreateTime()==null){
+			bean.setCreateTime(now);
+		}
+		bean.setUpdateTime(now);
+		if(!generalDao.saveSelective(bean)){
+			return null;
+		}
+		return bean;
 	}
 
 	/**
@@ -112,7 +129,11 @@ public abstract class BaseMybatisService<T extends BaseEntity, D extends BaseDao
 	 */
 	@Override
 	public T update(T bean) {
-		generalDao.update(bean);
+		bean.setUpdateTime(new Date());
+		int i = generalDao.update(bean);
+		if(i<1){
+			return null;
+		}
 		return bean;
 	}
 
@@ -122,9 +143,13 @@ public abstract class BaseMybatisService<T extends BaseEntity, D extends BaseDao
 	 * @param bean 实体bean
 	 * @return 更新结果
 	 */
-	public boolean updateSelective(T bean) {
-		int num = generalDao.updateSelective(bean);
-		return num > 0;
+	public T updateSelective(T bean) {
+		bean.setUpdateTime(new Date());
+		int i = generalDao.updateSelective(bean);
+		if(i<1){
+			return null;
+		}
+		return bean;
 	}
 
 	/**
@@ -156,5 +181,17 @@ public abstract class BaseMybatisService<T extends BaseEntity, D extends BaseDao
 	 * @return 查询条件
 	 */
 	public abstract <E extends BaseExample> E getExample(T bean);
+
+	/**
+	 * 操作数据库是否成功
+	 * @param baseEntity 实体
+	 * @return 结果
+	 */
+	public <K extends BaseEntity> boolean isOperatorSuccess(K baseEntity){
+		if(baseEntity==null||baseEntity.getId()==null){
+			return false;
+		}
+		return true;
+	}
 
 }

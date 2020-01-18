@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mountcloud.springcloud.common.mybatis.entity.BaseExample;
 import org.mountcloud.springcloud.common.mybatis.mapper.BaseMapper;
 import org.mountcloud.springproject.common.entity.BaseEntity;
+import org.mountcloud.springproject.common.util.ObjectUtil;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -141,7 +142,7 @@ public abstract class BaseDao<T extends BaseEntity, D extends BaseMapper>
 	public String getMapperPreffix() {
 
 		if(mapperPreffix==null){
-			Class <D> entityClass = (Class <D>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[1];
+			Class <D> entityClass = (Class <D>) ObjectUtil.getClassGenerics(this.getClass(),1);
 			String className = entityClass.getName();
 			mapperPreffix = className+".";
 		}
