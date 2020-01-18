@@ -12,7 +12,7 @@
 
   <groupId>org.mountcloud</groupId>
   <artifactId>spring-cloud-common-mybatis</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
 
   <description>This project contains the necessary components of spring boot mysql and mvc constraints.</description>
 
@@ -53,6 +53,16 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.mountcloud</groupId>
+      <artifactId>spring-project-common</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mountcloud</groupId>
+      <artifactId>spring-cloud-mvc-common</artifactId>
+    </dependency>
+
     <!--================================================================ JDBC start ================================================================-->
     <!-- 阿里 -->
     <dependency>
@@ -89,6 +99,18 @@
       <groupId>org.mybatis.generator</groupId>
       <artifactId>mybatis-generator-maven-plugin</artifactId>
       <version>${mybatis-generator-maven-plugin.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mountcloud</groupId>
+      <artifactId>mybatisplugin</artifactId>
+      <version>1.1</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>*</artifactId>
+          <groupId>*</groupId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!--================================================================ JDBC end ================================================================-->
   </dependencies>
@@ -157,4 +179,17 @@
     </profile>
   </profiles>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <addMavenDescriptor>false</addMavenDescriptor>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
