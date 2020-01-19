@@ -1,3 +1,6 @@
+# DEMO
+https://github.com/MountCloud/spring-cloud-common-mybatis-demo
+
 # USE 使用
 ##  USE spring cloud common ，使用spring cloud common方式
 ```
@@ -53,9 +56,6 @@ mybatis:
       resource: classpath:org/mountcloud/testmysql/mapper/*.xml
       package: org.mountcloud.testmysql.mapper.**
 ```
-
-# DEMO
-https://github.com/MountCloud/spring-cloud-common-mybatis-demo
 
 # NOTE
    For the mysql project, I prefer to use mybatis, so I integrated mybtis into the spring cloud, so that the spring cloud project has mybatis easily.
