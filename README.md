@@ -27,6 +27,12 @@ Application Main class add
 </dependency>
 ```
 
+# Warning 警告
+
+  There are data model constraints in this framework! When using this framework, the primary key name in the data table must be id and the data type must be long. And must inherit from org.mountcloud.springproject.common.entity.BaseEntity
+  
+  本框架中存在数据模型约束！在使用此框架时，数据表中的主键名称必须为id，数据类型必须是long类型。并且必须继承继承org.mountcloud.springproject.common.entity.BaseEntity
+
 # USE and Config,使用与配置
   You need to use this annotation to enable mybatis.需要使用此注解开启mybatis功能。
 ```
